@@ -3,7 +3,6 @@ import StarIcon from "../icons/StarIcon";
 
 const RestaurantCard = (props) => {
   const resObj = props.resObj?.card?.card;
-  console.log("resObj", resObj);
   return (
     <div className="restaurantCard" style={{ backgroundColor: "beige" }}>
       <img

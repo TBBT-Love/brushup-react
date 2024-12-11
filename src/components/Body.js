@@ -1,23 +1,26 @@
 import RestaurantCard from "./RestaurantCard";
 import results from "../utils/mockData";
+import { useState } from "react";
 
 const Body = () => {
-  console.log(results[0]);
+  const [restaurantList, setRestaurantList] = useState(results);
   return (
     <div className="body">
       <div className="filter">
         <button
           className="search"
           onClick={() => {
-            console.log("I am clicked");
+            const resultsfilter = results.filter(
+              (res) => res.card.card.info.avgRating > 4
+            );
+            setRestaurantList(resultsfilter);
           }}
         >
           Top Rated Restaurants
         </button>
-        Search Restaurant
       </div>
       <div className="restaurantContainer">
-        {results?.map((restaurant) => (
+        {restaurantList?.map((restaurant) => (
           <RestaurantCard
             key={restaurant.card.card.info.id}
             resObj={restaurant}
