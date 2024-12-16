@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState([]);
+  const [filteredRestaurantList, setfilteredRestaurantList] = useState([]);
   const [searchText, setsearchText] = useState([]);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const Body = () => {
     });
     console.log("restaurantListfromAPI", restaurantListfromAPI);
     setRestaurantList(restaurantListfromAPI);
+    setfilteredRestaurantList(restaurantListfromAPI);
   };
 
   return (
@@ -44,7 +46,7 @@ const Body = () => {
                 .toLowerCase()
                 .includes(searchText.toLowerCase());
             });
-            setRestaurantList(filteredRestaurantList);
+            setfilteredRestaurantList(filteredRestaurantList);
           }}
         >
           Search
@@ -63,10 +65,10 @@ const Body = () => {
       </div>
       <div className="restaurantContainer">
         {/* <Shimmer /> */}
-        {restaurantList.length === 0 ? (
+        {filteredRestaurantList.length === 0 ? (
           <Shimmer />
         ) : (
-          restaurantList?.map((restaurant) => (
+          filteredRestaurantList?.map((restaurant) => (
             <RestaurantCard
               key={restaurant.card.card.info.id}
               resObj={restaurant}
