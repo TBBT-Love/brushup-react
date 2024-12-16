@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState([]);
+  const [searchText, setsearchText] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect called!!!");
     fetchData();
   }, []);
 
@@ -27,13 +27,28 @@ const Body = () => {
     setRestaurantList(restaurantListfromAPI);
   };
 
-  // if (restaurantList.length === 0) {
-  //   return <Shimmer />;
-  // }
-  //
   return (
     <div className="body">
       <div className="filter">
+        <input
+          type="text"
+          value={searchText}
+          onChange={(e) => {
+            setsearchText(e.target.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            const filteredRestaurantList = restaurantList.filter((res) => {
+              return res.card.card.info.name
+                .toLowerCase()
+                .includes(searchText.toLowerCase());
+            });
+            setRestaurantList(filteredRestaurantList);
+          }}
+        >
+          Search
+        </button>
         <button
           className="search"
           onClick={() => {
